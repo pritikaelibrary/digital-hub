@@ -1,0 +1,511 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pritika Group - Digital Hub</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+.layout{ display:flex; min-height:80vh; }
+.sidebar{
+    width:270px;
+    background:#ffffff;
+    border-right:1px solid #e3eaf2;
+    padding:20px;
+}
+.content{ flex:1; padding:40px; }
+
+.list-item{
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #e3eaf2;
+    border-radius:8px;
+    cursor:pointer;
+}
+.list-item:hover{ background:#f0f4fb; }
+
+@media(max-width:900px){
+    .layout{ flex-direction:column; }
+    .sidebar{
+        width:100%;
+        border-right:none;
+        border-bottom:1px solid #e3eaf2;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header-band" style="position:relative;">
+<button class="btn"
+onclick="logout()"
+style="position:absolute; right:30px; top:30px; background:#ffffff; color:#1f3c88;">
+Logout
+</button>
+
+<img src="logo.png" class="header-logo">
+<h1>Pritika Group Digital Hub</h1>
+<p class="sub-heading">Employee Resource Center</p>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<h3 style="color:#1f3c88;">Menu</h3>
+
+<!-- EBOOKS -->
+<div class="menu-item" onclick="toggleMenu('ebooks')">
+📚 E-Books / Digital Books
+</div>
+<div id="ebooks" class="submenu">
+<div onclick="loadEbooks('foundry')">Foundry Books</div>
+<div onclick="loadEbooks('machining')">Machining Books</div>
+<div onclick="loadEbooks('quality')">Quality Books</div>
+<div onclick="loadEbooks('metallurgy')">Metallurgy Books</div>
+<div onclick="loadEbooks('maintenance')">Maintenance Books</div>
+<div onclick="loadEbooks('technical')">Technical Books</div>
+<div onclick="loadEbooks('management')">Management Books</div>
+</div>
+
+<!-- MAGAZINE -->
+<div class="menu-item" onclick="loadContent('Drishti')">
+📰 In-House Magazine
+</div>
+
+<!-- COMMUNICATION -->
+<div class="menu-item" onclick="toggleMenu('communication')">
+📢 Company Communication
+</div>
+<div id="communication" class="submenu">
+<div onclick="loadContent('Notices')">Notices & Circulars</div>
+<div onclick="loadContent('Policies')">Policies</div>
+<div onclick="loadContent('Projects')">Projects</div>
+</div>
+
+<!-- LEARNING -->
+<div class="menu-item" onclick="toggleMenu('learning')">
+🎓 Learning & Development
+</div>
+<div id="learning" class="submenu">
+<div onclick="loadContent('Calendars')">Plant Wise Training Calendars</div>
+<div onclick="loadContent('Behavioral')">Behavioral Training</div>
+<div onclick="loadContent('Technical')">Technical Training</div>
+</div>
+
+<!-- GALLERY -->
+<div class="menu-item" onclick="toggleMenu('gallery')">
+🖼 Gallery / Others
+</div>
+<div id="gallery" class="submenu">
+<div onclick="loadContent('Events')">Events</div>
+<div onclick="loadContent('Others')">Others</div>
+</div>
+
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+<div class="card" id="contentArea">
+<h2 style="color:#1f3c88;">Welcome to Digital Hub</h2>
+<hr style="margin:10px 0; border:0; border-top:1px solid #e3eaf2;">
+<p>Select a section from the left menu.</p>
+</div>
+</div>
+
+</div>
+
+<script>
+
+function logout(){ window.location.href="index.html"; }
+
+function toggleMenu(id){
+let el=document.getElementById(id);
+el.style.display=(el.style.display==="block")?"none":"block";
+}
+
+function openPDF(path){ window.open(path,"_blank"); }
+
+/* ================= EBOOKS ================= */
+
+function loadEbooks(category){
+
+let html = `
+<h2 style="color:#1f3c88;">${category.charAt(0).toUpperCase()+category.slice(1)} Books</h2>
+<hr style="margin:10px 0; border:0; border-top:1px solid #e3eaf2;">
+<div class="book-grid">
+`;
+
+/* ================= FOUNDRY ================= */
+if(category==="foundry"){
+html+=`
+
+<div class="book-card" onclick="openPDF('books/foundry/CastIronHandbook.pdf')">
+<img src="images/CastIronHB.jpg">
+<h4>Cast Iron Handbook</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/foundry/MetalCasting.pdf')">
+<img src="images/MetalCstgPrin.jpg">
+<h4>Metal Casting Principles</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/foundry/CastIronProperties.pdf')">
+<img src="images/CastIronProp.jpg">
+<h4>Cast Iron Physical & Engineering Properties</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/foundry/CastingSolidification.pdf')">
+<img src="images/ScTechCasting.jpg">
+<h4>Science & Engineering of Casting Soldification</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/foundry/HeatTreatmentProp.pdf')">
+<img src="images/HeatTrProp.jpg">
+<h4>Heat Treatment & Properties of Iron & Steel</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/foundry/HeatTreatmentManl.pdf')">
+<img src="images/HeatTrLabMan.jpg">
+<h4>A Lboratory Manual of Heat Treatment</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/foundry/MouldCoreMaterial.pdf')">
+<img src="images/MoldCorMtl.jpg">
+<h4>Mold & Core Material for the Steel Foundry</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/foundry/DesignCastingGating.pdf')">
+<img src="images/DesignGating.jpg">
+<h4>Design of Castings & Gating Systems</h4>
+</div>
+
+`;
+}
+
+/* ================= MACHINING ================= */
+if(category==="machining"){
+html+=`
+
+<div class="book-card" onclick="openPDF('books/machining/AdvMachPro.pdf')">
+<img src="images/AdvMcPro.jpg">
+<h4>Advanced Machining Processes</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/machining/AdvMachPro1.pdf')">
+<img src="images/AdvMcProc1.jpg">
+<h4>Advanced Machining Processes-1</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/machining/McShopTrdSec.pdf')">
+<img src="images/McShpTrdSec.jpg">
+<h4>Machine Shop Trade Screts</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/machining/McToolsOper.pdf')">
+<img src="images/McTech.jpg">
+<h4>Machining Technology - Tools & Operations</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/machining/McAndMtCalc.pdf')">
+<img src="images/HBMcMW.jpg">
+<h4>Handbook of Maching & Metalworking Calculations</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/machining/Secrets5AxisMc.pdf')">
+<img src="images/Sec5Axis.jpg">
+<h4>Secrets of 5 Axis Machining</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/machining/CNCMcTechnology.pdf')">
+<img src="images/CNCMcTech.jpg">
+<h4>CNC Machining Technology</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/machining/JigsFixturesDes.pdf')">
+<img src="images/DesJigFix.jpg">
+<h4>Design of Jigs, Fixtures & Press Tools</h4>
+</div>
+
+`;
+}
+
+/* ================= QUALITY ================= */
+if(category==="quality"){
+html+=`
+
+<div class="book-card" onclick="openPDF('books/quality/7QCTools.pdf')">
+<img src="images/7QCT.jpg">
+<h4>7QC Tools</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/quality/FMEA.pdf')">
+<img src="images/FMEA.jpg">
+<h4>Failure Mode & Effect Analysis (FMEA)</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/quality/SPC.pdf')">
+<img src="images/SPC.jpg">
+<h4>Statistical Process Control (SPC)</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/quality/MSA.pdf')">
+<img src="images/MSA.jpg">
+<h4>Measurement System Analysis (MSA)</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/quality/APQP.pdf')">
+<img src="images/APQP.jpg">
+<h4>Advanced Product Quality Planning (APQP) </h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/quality/100methodsTQM.pdf')">
+<img src="images/100TQM.jpg">
+<h4>100 Methods for Total Quality Management</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/quality/AFSCastingDefects.pdf')">
+<img src="images/CstDftAFS.jpg">
+<h4>Casting Defects (AFS)</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/quality/IKOCastingDefects.pdf')">
+<img src="images/IKOManCst.jpg">
+<h4>Manual of Casting Defects (IKO)</h4>
+</div>
+
+
+`;
+}
+
+/* ================= METALLURGY ================= */
+if(category==="metallurgy"){
+html+=`
+
+<div class="book-card" onclick="openPDF('books/metallurgy/MetallForNonMetallASM.pdf')">
+<img src="images/MetallfNM.jpg">
+<h4>Metallurgy for the Non-Metallurgist</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/metallurgy/MetallurgyOfIronSteel.pdf')">
+<img src="images/TheMetallIS.jpg">
+<h4>The Metallurgy of Iron & Steel</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/metallurgy/MechanicalMetallurgy.pdf')">
+<img src="images/MechMettl.jpg">
+<h4>Mechanical Metallurgy</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/metallurgy/PhysicalMetallurgyCastIron.pdf')">
+<img src="images/PhysicalMetall.jpg">
+<h4>Physical Metallurgy of Cast Iron</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/metallurgy/NewMetallurgyOfMetals.pdf')">
+<img src="images/NMettlMet.jpg">
+<h4>The New Metallurgy of Cast Metals</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/metallurgy/MetallurgicalScienceTech.pdf')">
+<img src="images/MetllTeksid.jpg">
+<h4>Metallurgical Science & Technology</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/metallurgy/TextbookOfMetallography.pdf')">
+<img src="images/TextBKMetll.jpg">
+<h4>A Text Book of Metallography</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/metallurgy/MetalsHandbook.pdf')">
+<img src="images/MetlHbook.jpg">
+<h4>Metals Handbook (ASM)</h4>
+</div>
+
+`;
+}
+
+/* ================= MAINTENANCE ================= */
+if(category==="maintenance"){
+html+=`
+
+<div class="book-card" onclick="openPDF('books/maintenance/MaintenanceFundamentals.pdf')">
+<img src="images/MaintFund.jpg">
+<h4>Maintenance Fundamentals</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/maintenance/FundamentalsofPM.pdf')">
+<img src="images/FundPM.jpg">
+<h4>Fundamentals of Preventive Maintenance</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/maintenance/MCMaintenanceandRepair.pdf')">
+<img src="images/McCompRep.jpg">
+<h4>Machinery Component Maintenance & Repair</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/maintenance/MaintPlng&SchHandbook.pdf')">
+<img src="images/MaintPlann.jpg">
+<h4>Maintenance Planning & Scheduling Handbook</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/maintenance/Prev&PredMaint.pdf')">
+<img src="images/PrevMaint.jpg">
+<h4>Preventive Predictive Maintenance</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/maintenance/HydraulicsandPneumatics.pdf')">
+<img src="images/HydrPneu.jpg">
+<h4>Hydraulics & Pneumatics</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/maintenance/ModernPneumatics.pdf')">
+<img src="images/ModernPneu.jpg">
+<h4>Modern Pneumatics</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/maintenance/RootCauseFailureAnalysis.pdf')">
+<img src="images/RootCause.jpg">
+<h4>Root Cause Failure Analysis</h4>
+</div>
+
+`;
+}
+
+/* ================= TECHNICAL ================= */
+if(category==="technical"){
+html+=`
+
+<div class="book-card" onclick="openPDF('books/technical/CADCAM.pdf')">
+<img src="images/CadCamPNR.jpg">
+<h4>CAD/CAM Principles & Application</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/technical/IndustrialAutomation.pdf')">
+<img src="images/IndlAutom.jpg">
+<h4>Handbook of Industrial Automation</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/technical/IndInstProcessControl.pdf')">
+<img src="images/InstrumProcess.jpg">
+<h4>Fundamentals of Industrial Instrumentation & Process Control</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/technical/IndlEngandMgmt.pdf')">
+<img src="images/IndlEngMgmt.jpg">
+<h4>Industrial Engineering & Management</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/technical/BoilerOptrGuide.pdf')">
+<img src="images/BoilerOptrGd.jpg">
+<h4>Boiler Operator's Guide</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/technical/FundofProjMgmt.pdf')">
+<img src="images/ProjMgmt.jpg">
+<h4>Fundamentals of Project Management</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/technical/ManufacturingProc.pdf')">
+<img src="images/MfgProcess.jpg">
+<h4>Manufacturing Processes</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/technical/IndlAutomationHands.pdf')">
+<img src="images/IndlAutoma.jpg">
+<h4>Industrial Automation - Hands On</h4>
+</div>
+
+`;
+}
+
+/* ================= MANAGEMENT ================= */
+if(category==="management"){
+html+=`
+
+<div class="book-card" onclick="openPDF('books/management/GoodToGreat.pdf')">
+<img src="images/GoodtoGrt.jpg">
+<h4>Good To Great</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/management/DWM.pdf')">
+<img src="images/DWM.jpg">
+<h4>Daily Work Management (DWM)</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/management/EffectiveComm.pdf')">
+<img src="images/Communication.jpg">
+<h4>The Science of Effective Communication</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/management/SWOT.pdf')">
+<img src="images/SWOT.jpg">
+<h4>A Useful Guide to SWOT Analysis</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/management/TimeManagement.pdf')">
+<img src="images/TimeMgmt.jpg">
+<h4>Time Management</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/management/FindYourWhy.pdf')">
+<img src="images/FindWhy.jpg">
+<h4>Find Your Why</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/management/ReadyAnything.pdf')">
+<img src="images/ReadyAnything.jpg">
+<h4>Ready For Anything</h4>
+</div>
+
+<div class="book-card" onclick="openPDF('books/management/TheToyotaWay.pdf')">
+<img src="images/Toyotaway.jpg">
+<h4>The Toyota Way</h4>
+</div>
+
+`;
+}
+
+html+=`</div>`;
+document.getElementById("contentArea").innerHTML=html;
+}
+
+/* ================= OTHER SECTIONS ================= */
+
+function loadContent(category){
+
+let html=`<h2 style="color:#1f3c88;">${category}</h2>
+<hr style="margin:10px 0; border:0; border-top:1px solid #e3eaf2;">`;
+
+/* DRISHTI */
+if(category==="Drishti"){
+html+=`<div class="book-grid">
+<div class="book-card" onclick="openPDF('books/drishti/drishti1.pdf')">
+<img src="images/drishti1.jpg"><h4>Volume 1 - Apr-Jun'24</h4></div>
+<div class="book-card" onclick="openPDF('books/drishti/drishti2.pdf')">
+<img src="images/drishti2.jpg"><h4>Volume 2 - Jul-Sept'24</h4></div>
+<div class="book-card" onclick="openPDF('books/drishti/drishti3.pdf')">
+<img src="images/drishti3.jpg"><h4>Volume 3 - Oct-Dec'24</h4></div>
+<div class="book-card" onclick="openPDF('books/drishti/drishti4.pdf')">
+<img src="images/drishti4.jpg"><h4>Volume 4 - Jan-Mar'25</h4></div>
+<div class="book-card" onclick="openPDF('books/drishti/drishti5.pdf')">
+<img src="images/drishti5.jpg"><h4>Volume 5 - Apr-Jun'25</h4></div>
+<div class="book-card" onclick="openPDF('books/drishti/drishti6.pdf')">
+<img src="images/drishti6.jpg"><h4>Volume 6 - Jul-Sep'25</h4></div>
+<div class="book-card" onclick="openPDF('books/drishti/drishti7.pdf')">
+<img src="images/drishti7.jpg"><h4>Volume 7 - Oct-Dec'25</h4></div>
+
+</div>`;
+}
+
+document.getElementById("contentArea").innerHTML=html;
+}
+
+</script>
+
+</body>
+</html>

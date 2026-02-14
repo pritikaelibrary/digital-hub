@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pritika Group - Digital Hub Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER BAND -->
+<div class="header-band">
+
+    <img src="logo.png" class="header-logo">
+
+    <h1>Pritika Group Digital Hub</h1>
+
+    <p class="sub-heading">  "Empowering Excellence through Integrated Knowledge”</p>
+
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-container">
+
+    <div class="card" style="max-width:400px; margin:auto; text-align:center;">
+
+        <h2 style="margin-bottom:20px;">Employee Login</h2>
+
+        <div id="messageBox" style="display:none; margin-bottom:15px;"></div>
+
+        <form id="loginForm">
+
+            <input type="email" id="email" placeholder="Employee Email ID" required><br>
+
+            <input type="password" id="password" placeholder="Password" required><br>
+
+            <button type="submit" class="btn" style="width:100%; margin-top:10px;">
+                Login
+            </button>
+
+        </form>
+
+        <p style="margin-top:15px; font-size:13px;">
+            Don't have an account?
+            <a href="signup.html" style="color:#b52b2b; font-weight:500;">
+                Register Here
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+const scriptURL = "https://script.google.com/macros/s/AKfycbwrehottqwjnBVS5Srg6fqmEFg_jtSknJyl0bT6castwvn1sf10AUyOzjxCkxyrVZ3YTg/exec";
+
+const form = document.getElementById("loginForm");
+const messageBox = document.getElementById("messageBox");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    fetch(scriptURL,{
+        method:"POST",
+        body: JSON.stringify({
+            action:"login",
+            email:email,
+            password:password
+        })
+    })
+    .then(res=>res.text())
+    .then(result=>{
+
+        if(result === "Admin"){
+            showMessage("Admin Login Successful! Redirecting...", true);
+            setTimeout(()=>window.location.href="admin-dashboard.html",1500);
+        }
+        else if(result === "Employee"){
+            showMessage("Login Successful! Redirecting...", true);
+            setTimeout(()=>window.location.href="DigitalHub.html",1500);
+        }
+        else{
+            showMessage("Invalid Email or Password.", false);
+        }
+
+    })
+    .catch(()=>showMessage("Server Error. Try Again.", false));
+});
+
+function showMessage(message, success){
+
+    messageBox.style.display="block";
+    messageBox.style.padding="10px";
+    messageBox.style.borderRadius="6px";
+
+    if(success){
+        messageBox.style.background="#e8f5e9";
+        messageBox.style.color="#2e7d32";
+    }else{
+        messageBox.style.background="#fdecea";
+        messageBox.style.color="#c62828";
+    }
+
+    messageBox.innerText=message;
+}
+
+</script>
+
+</body>
+</html>
